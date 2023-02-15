@@ -2,27 +2,26 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdlib.h>
-
+#include<string.h>
+char bar[15]="#";
+char bar2[15]="#";
 void progressbar(int s)
 {
-    if (s % 180 == 0)
+    if (s % 150 == 0)
     {
         printf("\t\t");
-        for (int i = 0; i < s; i++)
-        {
-            printf("#");
-        }
+        strcat(bar,"#");
+        printf("%s", bar);
     }
 }
+
 void progressbar2(int s)
 {
     if (s % 30 == 0)
     {
         printf("\t\t");
-        for (int i = 0; i < s; i++)
-        {
-            printf("#");
-        }
+        strcat(bar2,"#");
+        printf("%s", bar2);
     }
 }
 int main()
@@ -39,7 +38,7 @@ int main()
             printf("\e[?25l");
             sleep(1);
             progressbar(s);
-            printf("\rStudy period for: %d more sec", 1500 - s);
+            printf("\rStudy period ends in: %d sec.", 1500 - s);
             fflush(stdout);
             s++;
         }
@@ -51,7 +50,7 @@ int main()
             printf("\e[?25l");
             sleep(1);
             progressbar2(s);
-            printf("\rBreak time remaining: %d secs", 300 - s);
+            printf("\rBreak time ends in: %d sec.", 300 - s);
             fflush(stdout);
             s++;
         }
@@ -80,7 +79,8 @@ int main()
         {
             printf("Invalid option!!!\n");
         }
-
+        fclose(fptr);
+        
         break;
     case 2:
         printf("\nThank you for studying with me! :)");
@@ -90,5 +90,6 @@ int main()
         printf("Invalid option!!!\n");
         break;
     }
+    system("python3 analytics.py");
     return 0;
 }
